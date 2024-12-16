@@ -8,5 +8,5 @@ edition = "2021"
 [dependencies]
 clap = "4.4.2"
 keccak = { version = "0.1.3", features = ["asm"] }
-prio = "0.16.0"
+prio = { version = "0.17.0-alpha.0", git = "https://github.com/divviup/libprio-rs.git", rev = "f62005dc55816322a6eca64b5cc7f77dbb00b9a4" }
 rand = "0.8.5"

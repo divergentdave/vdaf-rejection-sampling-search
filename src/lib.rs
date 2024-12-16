@@ -46,7 +46,7 @@ where
                 let modulus: u128 = F::modulus().into();
 
                 while !done.load(Ordering::Relaxed) {
-                    let seed_bytes = rng.gen::<[u8; 16]>();
+                    let seed_bytes = rng.gen::<[u8; 32]>();
                     let seed = Seed::get_decoded(&seed_bytes).unwrap();
                     let mut seed_stream = XofTurboShake128::seed_stream(&seed, custom, binder);
                     for i in 0..config.prg_iterations {
