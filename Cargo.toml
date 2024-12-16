@@ -8,5 +8,5 @@ edition = "2021"
 [dependencies]
 clap = "4.4.2"
 keccak = { version = "0.1.3", features = ["asm"] }
-prio = "0.15.3"
+prio = "0.16.0"
 rand = "0.8.5"
