@@ -1,4 +1,4 @@
-use std::num::NonZeroUsize;
+use std::{num::NonZeroUsize, thread::available_parallelism};
 
 use clap::{value_parser, Arg, Command};
 use prio::field::Field64;
@@ -7,6 +7,7 @@ use vdaf_rejection_sampling_search::{search, Config};
 
 fn main() {
     let matches = app().get_matches();
+    let default_jobs = available_parallelism().map(Into::into).unwrap_or(1);
     let jobs = matches
         .get_one("jobs")
         .copied()
@@ -15,7 +16,7 @@ fn main() {
                 .ok()
                 .map(NonZeroUsize::get)
         })
-        .unwrap_or(1);
+        .unwrap_or(default_jobs);
     let prg_iterations = *matches.get_one("prg-iterations").unwrap();
     let config = Config::new(jobs, prg_iterations);
     search::<Field64>(config);
@@ -34,6 +35,6 @@ fn app() -> Command {
                 .short('n')
                 .long("prg-iterations")
                 .value_parser(value_parser!(usize))
-                .default_value("100000"),
+                .default_value("1000"),
         )
 }
